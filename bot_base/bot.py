@@ -1,5 +1,6 @@
 from jaraco.stream import buffer
+from irc import client
 
-server = irc.client.Reactor().server()
+server = client.Reactor().server()
 server.buffer_class = buffer.LenientDecodingLineBuffer
 server.connect()
