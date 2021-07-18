@@ -1,7 +1,5 @@
 import irc.bot
 import irc.strings
-from irc.client import ip_numstr_to_quad, ip_quad_to_numstr
-
 
 class TestBot(irc.bot.SingleServerIRCBot):
 
@@ -21,7 +19,8 @@ class TestBot(irc.bot.SingleServerIRCBot):
         c = self.connection
         if self.callbackPrivmsg is not None:
             response = self.callbackPrivmsg(nick, command)
-            c.privmsg(nick, response)
+            if response is not None:
+                c.privmsg(nick, response)
 
     def setCallbackPrivmsg(self, callback):
         self.callbackPrivmsg = callback
@@ -38,7 +37,8 @@ class TestBot(irc.bot.SingleServerIRCBot):
             c = self.connection
             if self.callbackPubmsg is not None:
                 response = self.callbackPubmsg(nick, command, channel)
-                c.privmsg(channel, response)
+                if response is not None:
+                    c.privmsg(channel, response)
         return
 
     def setCallbackPubmsg(self, callback):
@@ -55,7 +55,7 @@ class TestBot(irc.bot.SingleServerIRCBot):
 
 
 def connectBot(server, port, channel, nickname):
-    bot = TestBot("#BarmanTest", "pruebaUliPenelope", "irc.hirana.net", 6667)
+    bot = TestBot(channel, nickname, server, port)
     bot.start()
     return bot
 
