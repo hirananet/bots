@@ -28,19 +28,14 @@ class TestBot(irc.bot.SingleServerIRCBot):
         self.callbackPrivmsg = callback
 
     def on_pubmsg(self, c, e):
-        parts = e.arguments[0].split(" ", 1)
-        pingNick = parts[0].strip().replace(",", "")
-        command = parts[1].strip()
-        if len(pingNick) > 1 and irc.strings.lower(pingNick) == irc.strings.lower(
-            self.connection.get_nickname()
-        ):
-            channel = e.target
-            nick = e.source.nick
-            c = self.connection
-            if self.callbackPubmsg is not None:
-                response = self.callbackPubmsg(nick, command, channel)
-                if response is not None:
-                    c.privmsg(channel, response)
+        command = e.arguments[0].strip()
+        channel = e.target
+        nick = e.source.nick
+        c = self.connection
+        if self.callbackPubmsg is not None:
+            response = self.callbackPubmsg(nick, command, channel)
+            if response is not None:
+                c.privmsg(channel, response)
         return
 
     def setCallbackPubmsg(self, callback):
