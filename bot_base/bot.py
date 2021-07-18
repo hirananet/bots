@@ -6,6 +6,8 @@ class TestBot(irc.bot.SingleServerIRCBot):
     def __init__(self, channel, nickname, server, port=6667):
         irc.bot.SingleServerIRCBot.__init__(self, [(server, port)], nickname, nickname)
         self.channel = channel
+        self.callbackPrivmsg = None
+        self.callbackPubmsg = None
 
     def on_nicknameinuse(self, c, e):
         c.nick(c.get_nickname() + "_")
@@ -55,9 +57,7 @@ class TestBot(irc.bot.SingleServerIRCBot):
 
 
 def connectBot(server, port, channel, nickname):
-    bot = TestBot(channel, nickname, server, port)
-    bot.start()
-    return bot
+    return TestBot(channel, nickname, server, port)
 
 def onPrivmessage(bot, callback):
     bot.setCallbackPrivmsg(callback)

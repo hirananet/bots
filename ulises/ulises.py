@@ -8,5 +8,6 @@ def recibiPingCanal(nick, mensaje, canal):
 
 def run_ulises(): 
     bot = connectBot("irc.hirana.net", 6667, "#BarmanTest", "Ulises")
-    onPrivmessage(bot, recibiPingCanal)
-    onPubmessage(bot, recibiMensajePrivado)
+    onPrivmessage(bot, recibiMensajePrivado)
+    onPubmessage(bot, recibiPingCanal)
+    bot.start()

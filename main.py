@@ -1,6 +1,5 @@
 from ulises import ulises
-# import penelope
-import bot_base
+from penelope import penelope
 import sys
 
 if len(sys.argv) > 1:
@@ -9,7 +8,7 @@ else:
     bot = 'n/a'
 
 if bot == "penelope":
-    ulises.run_ulises()
+    penelope.run_penelope()
 elif bot == "ulises": 
     ulises.run_ulises()
 else:
